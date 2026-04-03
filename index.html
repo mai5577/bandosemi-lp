@@ -1,0 +1,2261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>坂東ゼミ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green: #00c853;
+      --green-hover: #00b34a;
+      --green-dark: #2e5a4d;
+      --blue-heading: #1a73e8;
+      --text-nav: #334155;
+      --text-muted: #94a3b8;
+      --text-body: #64748b;
+      --icon-bg: #1e3a5f;
+      --heading-navy: #1e293b;
+      --course-card-bg: #eef4fb;
+      --schedule-card-bg: #f0f4f8;
+      --schedule-badge-bg: #d6e8f5;
+      --schedule-navy: #1a202c;
+      --badge-red: #e53935;
+      --access-bg: #f1f5f9;
+      --access-icon-phone: #f97316;
+      --access-icon-pin: #38bdf8;
+      --line-icon-bg: #dcfce7;
+      --mv-blue: #0056d2;
+      --white: #ffffff;
+      --header-h: 80px;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --space-section-top: clamp(72px, 9vw, 116px);
+      --space-section-bottom: clamp(82px, 10vw, 132px);
+      --space-header-bottom: clamp(42px, 5vw, 60px);
+      --space-grid-gap: clamp(18px, 2.2vw, 28px);
+      --space-card-y: clamp(26px, 3vw, 34px);
+      --space-card-x: clamp(20px, 2.2vw, 26px);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans JP", system-ui, sans-serif;
+      font-size: 15px;
+      color: #1e293b;
+      background: var(--white);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* ----- Header ----- */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.96) 0%,
+        rgba(248, 252, 255, 0.92) 100%
+      );
+      border-bottom: 1px solid rgba(15, 23, 42, 0.14);
+      backdrop-filter: saturate(1.35) blur(12px);
+      -webkit-backdrop-filter: saturate(1.35) blur(12px);
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.09), 0 2px 0 rgba(255, 255, 255, 0.7) inset;
+    }
+
+    .site-header::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(26, 115, 232, 0), rgba(26, 115, 232, 0.5), rgba(16, 209, 100, 0.45), rgba(26, 115, 232, 0));
+      pointer-events: none;
+    }
+
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 clamp(16px, 3vw, 28px);
+      min-height: var(--header-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+      min-width: 0;
+    }
+
+    .brand-text--after-logo {
+      justify-content: center;
+    }
+
+    .brand-text--after-logo .brand-tagline {
+      line-height: 1.45;
+      white-space: normal;
+      letter-spacing: 0.015em;
+    }
+
+    @media (max-width: 420px) {
+      .brand {
+        flex-wrap: wrap;
+        row-gap: 6px;
+      }
+
+      .brand-text--after-logo {
+        flex-basis: 100%;
+      }
+
+      .brand-text--after-logo .brand-tagline {
+        white-space: normal;
+      }
+    }
+
+    .brand-logo-img,
+    .footer-logo-img {
+      width: auto;
+      display: block;
+      object-fit: contain;
+      object-position: left center;
+      flex-shrink: 0;
+    }
+
+    .brand-logo-img {
+      height: 58px;
+      max-width: min(400px, 70vw);
+      filter: none;
+      transition: transform 0.28s var(--ease), filter 0.28s var(--ease);
+    }
+
+    .brand:hover .brand-logo-img {
+      transform: translateY(-1px) scale(1.01);
+      filter: none;
+    }
+
+    .footer-logo-img {
+      height: 48px;
+      max-width: min(300px, 68vw);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .brand-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--green-dark);
+      line-height: 1.2;
+    }
+
+    .brand-tagline {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      line-height: 1.45;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 480px) {
+      .brand-tagline {
+        font-size: 0.6875rem;
+        white-space: normal;
+      }
+    }
+
+    .nav-desktop {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-left: auto;
+    }
+
+    .nav-desktop a {
+      position: relative;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--text-nav);
+      white-space: nowrap;
+      transition: color 0.22s var(--ease), opacity 0.22s var(--ease), transform 0.22s var(--ease);
+    }
+
+    .nav-desktop a:hover {
+      color: var(--green-dark);
+      transform: translateY(-1px);
+    }
+
+    .nav-desktop a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -8px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #10d164 0%, #00c853 35%, #1a73e8 100%);
+      opacity: 0;
+      transform: scaleX(0.45);
+      transform-origin: center;
+      box-shadow: 0 3px 10px rgba(26, 115, 232, 0.25);
+      transition: opacity 0.22s var(--ease), transform 0.22s var(--ease);
+    }
+
+    .nav-desktop a:hover::after {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .btn-line {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #21dd73 0%, #00c853 38%, #00aa47 100%);
+      color: var(--white);
+      font-size: 0.875rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease), filter 0.22s var(--ease);
+      box-shadow:
+        0 12px 26px rgba(0, 200, 83, 0.38),
+        0 2px 0 rgba(255, 255, 255, 0.38) inset,
+        0 -2px 0 rgba(0, 0, 0, 0.09) inset;
+    }
+
+    .btn-line:hover {
+      transform: translateY(-2px);
+      filter: saturate(1.08) brightness(1.02);
+      box-shadow:
+        0 16px 30px rgba(0, 200, 83, 0.42),
+        0 2px 0 rgba(255, 255, 255, 0.4) inset,
+        0 -2px 0 rgba(0, 0, 0, 0.1) inset;
+    }
+
+    .btn-line:active {
+      transform: translateY(0) scale(0.985);
+    }
+
+    .btn-line svg {
+      flex-shrink: 0;
+    }
+
+    .nav-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      color: var(--text-nav);
+      border: 1px solid rgba(15, 23, 42, 0.18);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(241, 245, 249, 0.88));
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.08), 0 1px 0 rgba(255, 255, 255, 0.7) inset;
+      transition: background 0.22s, border-color 0.22s, transform 0.22s;
+    }
+
+    .nav-toggle:hover {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(241, 245, 249, 0.95));
+      border-color: rgba(15, 23, 42, 0.28);
+      transform: translateY(-1px);
+    }
+
+    .nav-toggle .bar {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: currentColor;
+      border-radius: 1px;
+      transition: transform 0.25s var(--ease), opacity 0.2s;
+    }
+
+    .nav-toggle .bar + .bar {
+      margin-top: 6px;
+    }
+
+    .nav-toggle[aria-expanded="true"] .bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .nav-toggle[aria-expanded="true"] .bar:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-toggle[aria-expanded="true"] .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .nav-mobile {
+      display: none;
+      border-top: 1px solid rgba(15, 23, 42, 0.08);
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 0 24px 20px;
+    }
+
+    .nav-mobile.is-open:not([hidden]) {
+      display: block;
+    }
+
+    .nav-mobile a {
+      display: block;
+      padding: 14px 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-nav);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    }
+
+    .nav-mobile a:last-of-type {
+      border-bottom: none;
+    }
+
+    .nav-mobile .btn-line {
+      width: 100%;
+      margin-top: 16px;
+      padding: 14px 20px;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .nav-desktop {
+        display: none;
+      }
+
+      .header-actions .btn-line {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: flex;
+        flex-direction: column;
+      }
+
+      :root {
+        --header-h: 76px;
+      }
+
+      .header-inner {
+        padding: 0 16px;
+      }
+
+      .brand-logo-img {
+        height: 48px;
+        max-width: min(320px, 68vw);
+      }
+
+      .footer-logo-img {
+        height: 42px;
+        max-width: min(260px, 72vw);
+      }
+
+      .brand-name {
+        font-size: 1.125rem;
+      }
+    }
+
+    @media (min-width: 901px) {
+      .nav-mobile {
+        display: none !important;
+      }
+    }
+
+    /* ----- Main visual (below header) ----- */
+    .section-main-visual {
+      padding: clamp(52px, 7vw, 94px) clamp(20px, 4.5vw, 48px)
+        clamp(70px, 9vw, 112px);
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(900px circle at 18% 10%, rgba(26, 115, 232, 0.12) 0%, rgba(26, 115, 232, 0) 55%),
+        linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
+    }
+
+    .main-visual-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(36px, 5.4vw, 52px);
+      align-items: start;
+    }
+
+    @media (min-width: 900px) {
+      .main-visual-inner {
+        grid-template-columns: 9fr 11fr;
+        column-gap: clamp(48px, 6vw, 80px);
+        row-gap: 0;
+        align-items: start;
+      }
+    }
+
+    .main-visual-copy {
+      text-align: left;
+      min-width: 0;
+      max-width: 32em;
+      padding-top: 2px;
+    }
+
+    @media (min-width: 900px) {
+      .main-visual-copy {
+        margin-left: -8px;
+      }
+    }
+
+    .mv-catch {
+      margin: 0 0 clamp(18px, 2.8vw, 26px);
+      line-height: 1.22;
+      position: relative;
+      left: clamp(8px, 1.8vw, 22px);
+    }
+
+    .mv-catch-line1,
+    .mv-catch-line2 {
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: 0.015em;
+    }
+
+    .mv-catch-line1 {
+      display: block;
+      font-size: clamp(2.18rem, 6vw, 3.53rem);
+    }
+
+    .mv-catch-line2 {
+      display: block;
+      margin-top: 0.2em;
+      font-size: clamp(2.18rem, 6vw, 3.53rem);
+      color: var(--mv-blue);
+      position: relative;
+    }
+
+    .mv-catch-line2::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.08em;
+      height: 0.16em;
+      background: linear-gradient(90deg, rgba(0, 86, 210, 0.25), rgba(16, 209, 100, 0.18));
+      border-radius: 999px;
+      z-index: -1;
+    }
+
+    .mv-headline {
+      margin: 0 0 clamp(20px, 3vw, 28px);
+      font-size: clamp(1.35rem, 3.1vw, 1.95rem);
+      font-weight: 800;
+      line-height: 1.45;
+      color: transparent;
+      background: linear-gradient(90deg, #1a73e8 0%, var(--mv-blue) 46%, #10d164 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      letter-spacing: 0.02em;
+    }
+
+    .mv-body {
+      margin: 0;
+      font-size: clamp(0.9375rem, 1.5vw, 1rem);
+      line-height: 2;
+      color: #4a5568;
+      max-width: 36em;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .mv-quicknav {
+      display: flex;
+      margin-top: clamp(36px, 5vw, 52px);
+      padding-top: 6px;
+      border-top: 2px solid #e2e8f0;
+    }
+
+    .mv-quicknav a {
+      flex: 1;
+      min-width: 0;
+      text-align: center;
+      padding: 14px 8px 12px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #64748b;
+      border-left: 2px solid #e2e8f0;
+      transition: color 0.2s var(--ease);
+      border-radius: 12px;
+    }
+
+    .mv-quicknav a:first-child {
+      border-left: none;
+    }
+
+    .mv-quicknav a:hover {
+      color: var(--mv-blue);
+      background: rgba(26, 115, 232, 0.06);
+    }
+
+    .main-visual-media {
+      margin: 0;
+      border-radius: clamp(20px, 2.4vw, 28px);
+      overflow: hidden;
+      background: #eef2f7;
+      border: 1px solid rgba(26, 115, 232, 0.12);
+      box-shadow: 0 30px 70px rgba(15, 23, 42, 0.10), 0 12px 26px rgba(15, 23, 42, 0.06),
+        0 2px 10px rgba(15, 23, 42, 0.04);
+      aspect-ratio: 4 / 3;
+      max-height: min(54vh, 460px);
+      align-self: stretch;
+      position: relative;
+    }
+
+    .main-visual-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 40%),
+        radial-gradient(600px circle at 15% 10%, rgba(26, 115, 232, 0.12) 0%, rgba(26, 115, 232, 0) 50%);
+    }
+
+    @media (min-width: 900px) {
+      .main-visual-media {
+        max-height: none;
+        width: 100%;
+        min-height: 0;
+      }
+    }
+
+    .main-visual-media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 36%;
+      border-radius: 0;
+      transition: transform 0.7s var(--ease);
+    }
+
+    .main-visual-media:hover img {
+      transform: scale(1.015);
+    }
+
+    /* ----- Stats (highlights) ----- */
+    .section-stats {
+      padding: clamp(54px, 7vw, 82px) 24px clamp(62px, 8vw, 98px);
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(700px circle at 50% -25%, rgba(26, 115, 232, 0.1) 0%, rgba(26, 115, 232, 0) 62%),
+        linear-gradient(180deg, #fbfdff 0%, #ffffff 100%);
+    }
+
+    .stats-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px 20px;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+      }
+    }
+
+    .stat-item {
+      position: relative;
+      padding: 14px 10px 10px;
+      border-radius: 16px;
+      transition: transform 0.25s var(--ease), background 0.25s var(--ease);
+    }
+
+    .stat-item::after {
+      content: "";
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 34px;
+      background: linear-gradient(180deg, rgba(148, 163, 184, 0) 0%, rgba(148, 163, 184, 0.48) 50%, rgba(148, 163, 184, 0) 100%);
+    }
+
+    .stat-item:last-child::after {
+      display: none;
+    }
+
+    @media (max-width: 767px) {
+      .stat-item::after {
+        display: none;
+      }
+    }
+
+    .stat-item:hover {
+      transform: translateY(-2px);
+      background: rgba(26, 115, 232, 0.04);
+    }
+
+    .stat-value {
+      margin: 0 0 6px;
+      font-size: clamp(1.45rem, 2.7vw, 2.15rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: transparent;
+      background: linear-gradient(90deg, #155fc6 0%, #0f56b6 55%, #0f9a49 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      letter-spacing: 0.02em;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
+    }
+
+    .stat-value--schools {
+      font-size: clamp(1.26rem, 2.15vw, 1.88rem);
+      white-space: nowrap;
+      letter-spacing: 0.01em;
+    }
+
+    .stat-label {
+      margin: 0;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #64748b;
+      line-height: 1.4;
+      letter-spacing: 0.04em;
+    }
+
+    /* ----- Hero ----- */
+    .hero {
+      padding: var(--space-section-top) 24px var(--space-section-bottom);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(700px circle at 50% -8%, rgba(26, 115, 232, 0.12) 0%, rgba(26, 115, 232, 0) 62%),
+        linear-gradient(180deg, #fbfdff 0%, #ffffff 100%);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 16px;
+      transform: translateX(-50%);
+      width: min(120px, 22vw);
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--mv-blue), #10d164);
+      opacity: 0.75;
+    }
+
+    .hero-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-kicker {
+      margin: 0 0 10px;
+      font-size: clamp(1.28rem, 3.6vw, 1.85rem);
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: 0.03em;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.75);
+    }
+
+    .hero-title {
+      margin: 0 0 clamp(30px, 3.6vw, 42px);
+      font-size: clamp(2.05rem, 5.6vw, 3.1rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: transparent;
+      background: linear-gradient(90deg, #1a73e8 0%, #0f62d0 42%, #10d164 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-lead {
+      margin: 0 0 clamp(28px, 3.2vw, 38px);
+      color: var(--blue-heading);
+    }
+
+    .hero-lead p {
+      margin: 0;
+    }
+
+    .hero-lead-highlight {
+      font-size: clamp(1.24rem, 3.5vw, 1.72rem);
+      font-weight: 800;
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+      color: var(--blue-heading);
+    }
+
+    .hero-lead p + p {
+      margin-top: 0.58em;
+      font-size: clamp(1rem, 2.2vw, 1.16rem);
+      font-weight: 700;
+      line-height: 1.72;
+      color: #2a67c5;
+    }
+
+    .hero-lead p.hero-lead-highlight + p {
+      margin-top: 0.6em;
+    }
+
+    .hero-body {
+      margin: 0;
+      font-size: clamp(0.95rem, 1.45vw, 1.03rem);
+      line-height: 2;
+      color: #5a6778;
+      text-align: left;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
+    }
+
+    @media (min-width: 600px) {
+      .hero-body {
+        text-align: center;
+      }
+    }
+
+    /* ----- Features ----- */
+    .section-features {
+      padding: var(--space-section-top) 24px var(--space-section-bottom);
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(820px circle at 50% -18%, rgba(26, 115, 232, 0.11) 0%, rgba(26, 115, 232, 0) 64%),
+        linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
+    }
+
+    .section-features::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: min(1120px, 92vw);
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        rgba(148, 163, 184, 0) 0%,
+        rgba(148, 163, 184, 0.38) 28%,
+        rgba(148, 163, 184, 0.38) 72%,
+        rgba(148, 163, 184, 0) 100%
+      );
+      pointer-events: none;
+    }
+
+    .features-grid {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-grid-gap);
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (min-width: 768px) {
+      .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-grid-gap);
+      }
+    }
+
+    .feature-card {
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      border: 1px solid rgba(15, 86, 182, 0.10);
+      border-radius: 22px;
+      padding: var(--space-card-y) var(--space-card-x) calc(var(--space-card-y) + 2px);
+      box-shadow: 0 16px 34px rgba(15, 23, 42, 0.07), 0 4px 12px rgba(15, 23, 42, 0.04);
+      transition: box-shadow 0.28s var(--ease), transform 0.28s var(--ease), border-color 0.28s var(--ease);
+    }
+
+    .feature-card:hover {
+      border-color: rgba(15, 86, 182, 0.2);
+      box-shadow: 0 24px 52px rgba(15, 23, 42, 0.1), 0 10px 24px rgba(15, 23, 42, 0.05);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #1f4a93 0%, #123b78 60%, #0f62d0 100%);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 10px 20px rgba(15, 54, 112, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .feature-icon svg {
+      width: 28px;
+      height: 28px;
+      color: var(--white);
+    }
+
+    .feature-card h3 {
+      margin: 0 0 14px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      line-height: 1.42;
+      color: #0b1f3d;
+      letter-spacing: 0.01em;
+    }
+
+    .feature-card p {
+      margin: 0;
+      font-size: 0.875rem;
+      line-height: 1.9;
+      color: #55657d;
+    }
+
+    /* ----- Courses ----- */
+    .section-courses {
+      padding: var(--space-section-top) 24px var(--space-section-bottom);
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(760px circle at 82% -10%, rgba(15, 86, 182, 0.1) 0%, rgba(15, 86, 182, 0) 62%),
+        linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+    }
+
+    .courses-header {
+      max-width: 640px;
+      margin: 0 auto var(--space-header-bottom);
+      text-align: center;
+    }
+
+    .courses-title {
+      margin: 0 0 18px;
+      font-size: clamp(1.7rem, 3.8vw, 2.2rem);
+      font-weight: 800;
+      color: transparent;
+      background: linear-gradient(90deg, #0b1f3d 0%, #114a93 50%, #0f62d0 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      letter-spacing: 0.03em;
+    }
+
+    .courses-lead {
+      margin: 0;
+      font-size: 0.9375rem;
+      line-height: 1.9;
+      color: #5d6e85;
+    }
+
+    .courses-grid {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-grid-gap);
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (min-width: 900px) {
+      .courses-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-grid-gap);
+      }
+    }
+
+    .course-card {
+      background: linear-gradient(180deg, #f2f7ff 0%, #edf4ff 100%);
+      border: 1px solid rgba(15, 86, 182, 0.12);
+      border-radius: 24px;
+      padding: var(--space-card-y) var(--space-card-x) calc(var(--space-card-y) + 2px);
+      box-shadow: 0 16px 34px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.04);
+      transition: box-shadow 0.28s var(--ease), transform 0.28s var(--ease), border-color 0.28s var(--ease);
+    }
+
+    .course-card:hover {
+      border-color: rgba(15, 86, 182, 0.2);
+      box-shadow: 0 24px 52px rgba(15, 23, 42, 0.1), 0 10px 24px rgba(15, 23, 42, 0.05);
+      transform: translateY(-4px);
+    }
+
+    .course-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #1f4a93 0%, #123b78 60%, #0f62d0 100%);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 10px 20px rgba(15, 54, 112, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+
+    .course-icon svg {
+      width: 28px;
+      height: 28px;
+      color: var(--white);
+      stroke-width: 1.85;
+    }
+
+    .course-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .course-head-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .course-title {
+      margin: 0;
+      font-size: 1.125rem;
+      font-weight: 800;
+      color: #0b1f3d;
+      line-height: 1.4;
+    }
+
+    .course-price {
+      margin: 8px 0 0;
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: #0f62d0;
+      line-height: 1.4;
+    }
+
+    .course-desc {
+      margin: 0;
+      font-size: 0.875rem;
+      line-height: 1.9;
+      color: #55657d;
+    }
+
+    .courses-footnote {
+      max-width: 1120px;
+      margin: clamp(28px, 3vw, 40px) auto 0;
+      padding: 0 8px;
+      text-align: center;
+      font-size: 0.875rem;
+      line-height: 1.8;
+      color: #5f6e83;
+    }
+
+    .courses-footnote-dot {
+      display: inline-block;
+      margin-right: 10px;
+      color: #3b82f6;
+      font-weight: 900;
+    }
+
+    /* ----- Schedule ----- */
+    .section-schedule {
+      padding: var(--space-section-top) 24px var(--space-section-bottom);
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(760px circle at 14% -6%, rgba(15, 86, 182, 0.1) 0%, rgba(15, 86, 182, 0) 64%),
+        linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+    }
+
+    .schedule-header {
+      max-width: 720px;
+      margin: 0 auto var(--space-header-bottom);
+      text-align: center;
+    }
+
+    .schedule-title {
+      margin: 0 0 18px;
+      font-size: clamp(1.72rem, 3.9vw, 2.3rem);
+      font-weight: 800;
+      color: transparent;
+      background: linear-gradient(90deg, #0b1f3d 0%, #114a93 52%, #0f62d0 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      letter-spacing: 0.04em;
+    }
+
+    .schedule-lead {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: #5d6e85;
+    }
+
+    .schedule-grid {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-grid-gap);
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (min-width: 900px) {
+      .schedule-grid {
+        flex-direction: row;
+        justify-content: center;
+        align-items: stretch;
+        gap: var(--space-grid-gap);
+      }
+    }
+
+    .schedule-card {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+      background: linear-gradient(180deg, #f2f7ff 0%, #edf4ff 100%);
+      border: 1px solid rgba(15, 86, 182, 0.12);
+      border-radius: 24px;
+      padding: var(--space-card-y) var(--space-card-x) calc(var(--space-card-y) + 2px);
+      box-shadow: 0 16px 34px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.04);
+      transition: box-shadow 0.28s var(--ease), transform 0.28s var(--ease), border-color 0.28s var(--ease);
+    }
+
+    .schedule-card:hover {
+      border-color: rgba(15, 86, 182, 0.2);
+      box-shadow: 0 24px 52px rgba(15, 23, 42, 0.1), 0 10px 24px rgba(15, 23, 42, 0.05);
+      transform: translateY(-3px);
+    }
+
+    .schedule-card-title {
+      margin: 0 0 20px;
+      font-size: 1.125rem;
+      font-weight: 800;
+      color: #0b1f3d;
+      text-align: center;
+    }
+
+    .schedule-spots {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--badge-red);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      box-shadow: 0 2px 8px rgba(229, 57, 53, 0.35);
+      z-index: 1;
+    }
+
+    @media (max-width: 899px) {
+      .schedule-spots {
+        top: 12px;
+        right: 12px;
+      }
+    }
+
+    .schedule-card--limited .schedule-card-title {
+      padding-left: 56px;
+      padding-right: 56px;
+    }
+
+    .schedule-block + .schedule-block {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(26, 32, 44, 0.08);
+    }
+
+    .schedule-badge {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #e4f3ff 0%, #d8ecff 100%);
+      color: #0f62d0;
+      font-size: 0.8125rem;
+      font-weight: 800;
+      border: 1px solid rgba(15, 98, 208, 0.15);
+    }
+
+    .schedule-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 14px;
+    }
+
+    .schedule-line svg {
+      flex-shrink: 0;
+      color: #123b78;
+      stroke-width: 1.9;
+    }
+
+    .schedule-days {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #0b1f3d;
+    }
+
+    .schedule-time {
+      margin-left: auto;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #0f62d0;
+    }
+
+    @media (max-width: 480px) {
+      .schedule-time {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+
+    .schedule-footnote {
+      max-width: 720px;
+      margin: clamp(30px, 3.2vw, 44px) auto 0;
+      padding: 0 8px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 10px;
+      font-size: 0.875rem;
+      line-height: 1.75;
+      color: #5f6e83;
+    }
+
+    .schedule-footnote-dot {
+      flex-shrink: 0;
+      width: 8px;
+      height: 8px;
+      margin-top: 0.55em;
+      border-radius: 50%;
+      background: #3b82f6;
+    }
+
+    /* ----- Access / Contact ----- */
+    .section-access {
+      padding: var(--space-section-top) 24px var(--space-section-bottom);
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(780px circle at 12% 8%, rgba(26, 115, 232, 0.10) 0%, rgba(26, 115, 232, 0) 58%),
+        linear-gradient(180deg, #f7fbff 0%, var(--access-bg) 100%);
+    }
+
+    .access-header {
+      max-width: 720px;
+      margin: 0 auto var(--space-header-bottom);
+      text-align: center;
+    }
+
+    .access-title {
+      margin: 0 0 20px;
+      font-size: clamp(1.5rem, 3.8vw, 2rem);
+      font-weight: 700;
+      color: var(--schedule-navy);
+      letter-spacing: 0.04em;
+    }
+
+    .access-lead {
+      margin: 0;
+      font-size: 0.9375rem;
+      line-height: 1.85;
+      color: var(--text-body);
+    }
+
+    .access-grid {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-grid-gap);
+    }
+
+    @media (min-width: 900px) {
+      .access-grid {
+        grid-template-columns: 1fr 1.35fr;
+        gap: var(--space-grid-gap);
+        align-items: stretch;
+      }
+    }
+
+    .access-card {
+      background: var(--white);
+      border-radius: 30px;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.08), 0 2px 10px rgba(15, 23, 42, 0.04);
+    }
+
+    .access-card--line {
+      padding: 40px 28px 36px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    }
+
+    .access-line-icon-wrap {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #eafff2 0%, #dcfce7 65%, #c9f5d8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      border: 1px solid rgba(16, 201, 88, 0.25);
+      box-shadow: 0 8px 20px rgba(16, 201, 88, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .access-line-icon-wrap svg {
+      width: 38px;
+      height: 38px;
+      color: var(--green);
+      stroke-width: 1.9;
+    }
+
+    .access-card--line h3 {
+      margin: 0 0 14px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--schedule-navy);
+    }
+
+    .access-card--line .access-desc {
+      margin: 0 0 28px;
+      font-size: 0.9375rem;
+      line-height: 1.8;
+      color: var(--text-body);
+      max-width: 320px;
+    }
+
+    .access-card--line .btn-line {
+      padding: 12px 28px;
+      font-size: 0.9375rem;
+    }
+
+    .access-card--line .access-note {
+      margin: 14px 0 0;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .access-card--info {
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(246, 250, 255, 0.98) 100%);
+    }
+
+    .access-info-body {
+      padding: 32px 28px 28px;
+      flex: 1;
+      min-width: 0;
+      position: relative;
+    }
+
+    @media (min-width: 900px) {
+      .access-card--info {
+        flex-direction: row;
+        align-items: stretch;
+      }
+
+      .access-info-body {
+        padding: 36px 32px 36px 36px;
+        align-self: stretch;
+        flex: 1 1 52%;
+      }
+    }
+
+    .access-block + .access-block {
+      margin-top: 28px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(26, 115, 232, 0.12);
+    }
+
+    .access-block-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .access-icon-circle {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .access-icon-circle--phone {
+      background: radial-gradient(circle at 35% 30%, rgba(255, 242, 230, 0.95), rgba(255, 228, 206, 0.92));
+      color: #d86b11;
+    }
+
+    .access-icon-circle--pin {
+      background: radial-gradient(circle at 35% 30%, rgba(233, 248, 255, 0.95), rgba(210, 239, 255, 0.95));
+      color: #0a73b8;
+    }
+
+    .access-icon-circle svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 1.9;
+    }
+
+    .access-meta-label {
+      display: block;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #7c8ea7;
+      margin-bottom: 4px;
+    }
+
+    .access-block-title {
+      margin: 0 0 10px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--schedule-navy);
+    }
+
+    .access-tel {
+      margin: 0 0 8px;
+      font-size: clamp(1.375rem, 3vw, 1.75rem);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--schedule-navy);
+    }
+
+    .access-tel a {
+      text-decoration: none;
+      transition: color 0.2s var(--ease);
+    }
+
+    .access-tel a:hover {
+      color: var(--blue-heading);
+    }
+
+    .access-hours {
+      margin: 0;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .access-address-lead {
+      margin: 0 0 8px;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      line-height: 1.6;
+      color: var(--text-nav);
+    }
+
+    .access-address {
+      margin: 0;
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: var(--text-body);
+    }
+
+    .access-photo-wrap {
+      position: relative;
+      flex-shrink: 0;
+      margin: 0;
+      padding: 0;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #e8eef3;
+      box-shadow: 0 16px 44px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.04);
+      aspect-ratio: 4 / 3;
+      max-height: min(52vw, 320px);
+    }
+
+    @media (min-width: 900px) {
+      .access-photo-wrap {
+        flex: 0 0 auto;
+        width: 44%;
+        max-width: 440px;
+        min-width: 260px;
+        max-height: none;
+        min-height: 0;
+        align-self: center;
+      }
+    }
+
+    .access-photo-wrap img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 38% center;
+    }
+
+    .access-map {
+      max-width: 1120px;
+      margin: 36px auto 0;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(26, 115, 232, 0.14);
+      box-shadow: 0 16px 38px rgba(15, 23, 42, 0.10), 0 4px 14px rgba(15, 23, 42, 0.05);
+      background: #e2e8f0;
+    }
+
+    .access-map iframe {
+      display: block;
+      width: 100%;
+      height: min(420px, 55vw);
+      min-height: 280px;
+      border: 0;
+    }
+
+    .access-map-link {
+      max-width: 1120px;
+      margin: 14px auto 0;
+      padding: 0 8px;
+      text-align: center;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--text-body);
+    }
+
+    .access-map-link a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: #0f62d0;
+      font-weight: 700;
+      text-decoration: none;
+      background: rgba(26, 115, 232, 0.08);
+      border: 1px solid rgba(26, 115, 232, 0.18);
+      transition: transform 0.2s var(--ease), background 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    }
+
+    .access-map-link a::after {
+      content: "↗";
+      font-size: 0.9em;
+      line-height: 1;
+      opacity: 0.85;
+    }
+
+    .access-map-link a:hover {
+      transform: translateY(-1px);
+      background: rgba(26, 115, 232, 0.13);
+      box-shadow: 0 6px 16px rgba(26, 115, 232, 0.16);
+    }
+
+    /* ----- Footer ----- */
+    .site-footer {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(760px circle at 8% -16%, rgba(59, 130, 246, 0.04) 0%, rgba(59, 130, 246, 0) 56%),
+        radial-gradient(640px circle at 92% 118%, rgba(96, 165, 250, 0.03) 0%, rgba(96, 165, 250, 0) 54%),
+        linear-gradient(160deg, #ffffff 0%, #fcfdff 52%, #f9fbff 100%);
+      border-top: 1px solid rgba(148, 197, 255, 0.2);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: clamp(20px, 2.6vw, 32px);
+      padding: clamp(42px, 6vw, 64px) 24px clamp(30px, 4vw, 46px);
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.26s var(--ease);
+    }
+
+    .footer-brand:hover {
+      transform: translateY(-1px);
+    }
+
+    .footer-brand:hover .footer-logo-img {
+      opacity: 0.95;
+      filter: drop-shadow(0 8px 18px rgba(96, 165, 250, 0.22));
+    }
+
+    .footer-brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .footer-tagline {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #5f7391;
+      line-height: 1.4;
+      letter-spacing: 0.02em;
+    }
+
+    .footer-brand-text--after-logo {
+      justify-content: center;
+    }
+
+    .footer-brand-text--after-logo .footer-tagline {
+      white-space: normal;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 480px) {
+      .footer-brand {
+        flex-wrap: wrap;
+        row-gap: 8px;
+      }
+
+      .footer-brand-text--after-logo {
+        flex-basis: 100%;
+      }
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 28px;
+      margin-left: auto;
+    }
+
+    .footer-nav a {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: #1f3556;
+      white-space: nowrap;
+      text-decoration: none;
+      text-underline-offset: 5px;
+      transition: color 0.22s var(--ease), text-decoration-color 0.22s var(--ease), opacity 0.22s var(--ease);
+    }
+
+    .footer-nav a:hover {
+      color: #0f62d0;
+      text-decoration: underline;
+      text-decoration-color: rgba(15, 98, 208, 0.45);
+    }
+
+    @media (max-width: 640px) {
+      .footer-nav {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: clamp(12px, 1.8vw, 24px);
+      padding: clamp(18px, 2.6vw, 28px) 24px clamp(30px, 4vw, 44px);
+      border-top: 1px solid rgba(148, 197, 255, 0.35);
+    }
+
+    .footer-copy {
+      margin: 0;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: #7890af;
+      text-transform: uppercase;
+    }
+
+    .footer-legal {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 28px;
+    }
+
+    .footer-legal a {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: #7e97b7;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s var(--ease);
+    }
+
+    .footer-legal a:hover {
+      color: #1f3556;
+    }
+
+    @media (max-width: 767px) {
+      :root {
+        --space-section-top: clamp(52px, 12vw, 68px);
+        --space-section-bottom: clamp(58px, 13vw, 78px);
+        --space-header-bottom: clamp(30px, 7vw, 40px);
+        --space-grid-gap: clamp(14px, 4.2vw, 20px);
+        --space-card-y: clamp(20px, 5.4vw, 26px);
+        --space-card-x: clamp(16px, 4.6vw, 20px);
+      }
+
+      .section-main-visual {
+        padding-top: clamp(36px, 10vw, 52px);
+        padding-bottom: clamp(54px, 12vw, 72px);
+      }
+
+      .main-visual-inner {
+        gap: clamp(28px, 7vw, 36px);
+      }
+
+      .main-visual-copy {
+        max-width: 100%;
+      }
+
+      .mv-catch {
+        left: 0;
+      }
+
+      .mv-headline {
+        margin-bottom: clamp(16px, 4vw, 22px);
+      }
+
+      .mv-body {
+        line-height: 1.85;
+      }
+
+      .mv-quicknav {
+        margin-top: clamp(26px, 7vw, 36px);
+      }
+
+      .mv-quicknav a {
+        padding: 12px 6px 11px;
+        font-size: 0.76rem;
+      }
+
+      .stats-grid {
+        gap: 16px 12px;
+      }
+
+      .hero-title {
+        margin-bottom: clamp(24px, 6vw, 32px);
+      }
+
+      .hero-lead {
+        margin-bottom: clamp(22px, 5.5vw, 30px);
+      }
+
+      .hero-body {
+        line-height: 1.9;
+      }
+
+      .feature-icon,
+      .course-icon {
+        width: 52px;
+        height: 52px;
+        margin-bottom: 16px;
+      }
+
+      .course-head {
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .courses-footnote,
+      .schedule-footnote,
+      .access-map-link {
+        margin-top: clamp(22px, 5.4vw, 30px);
+      }
+
+      .access-map {
+        margin-top: clamp(24px, 6vw, 32px);
+      }
+
+      .footer-top {
+        padding-top: clamp(34px, 8.5vw, 44px);
+        padding-bottom: clamp(24px, 6.5vw, 32px);
+      }
+
+      .footer-bottom {
+        padding-top: clamp(16px, 4.5vw, 22px);
+        padding-bottom: clamp(24px, 6.5vw, 34px);
+      }
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="top"></div>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top">
+        <img
+          class="brand-logo-img"
+          src="assets/logo-bando.png"
+          alt="坂東ゼミ"
+          width="1024"
+          height="274"
+          decoding="async"
+        />
+        <div class="brand-text brand-text--after-logo">
+          <span class="brand-tagline">東かがわ市の中学生を全力応援！</span>
+        </div>
+      </a>
+
+      <nav class="nav-desktop" aria-label="メインナビゲーション">
+        <a href="#features">塾の特徴</a>
+        <a href="#courses">コースと料金</a>
+        <a href="#schedule">時間割</a>
+        <a href="#access">アクセス</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn-line" href="https://qr-official.line.me/gs/M_579mquas_GW.png?oat_content=qr" target="_blank" rel="noopener noreferrer">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.345.282-.63.63-.63.212 0 .391.091.51.253l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629 0-.344.285-.629.63-.629h1.125V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771h1.125c.345 0 .63.285.63.629 0 .344-.285.629-.63.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.05 9.608.391.084.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.54 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
+          </svg>
+          LINEで相談
+        </a>
+        <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMobile" aria-label="メニューを開く">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="nav-mobile" id="navMobile" aria-label="モバイルメニュー" hidden>
+      <a href="#features">塾の特徴</a>
+      <a href="#courses">コースと料金</a>
+      <a href="#schedule">時間割</a>
+      <a href="#access">アクセス</a>
+      <a class="btn-line" href="https://qr-official.line.me/gs/M_579mquas_GW.png?oat_content=qr" target="_blank" rel="noopener noreferrer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.345.282-.63.63-.63.212 0 .391.091.51.253l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629 0-.344.285-.629.63-.629h1.125V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771h1.125c.345 0 .63.285.63.629 0 .344-.285.629-.63.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.05 9.608.391.084.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.54 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
+        </svg>
+        LINEで相談
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section-main-visual" aria-labelledby="mv-headline">
+      <div class="main-visual-inner">
+        <div class="main-visual-copy">
+          <p class="mv-catch">
+            <span class="mv-catch-line1">今だからこそ</span>
+            <span class="mv-catch-line2">「少人数」</span>
+          </p>
+          <h1 class="mv-headline" id="mv-headline">勉強の土台を<wbr />ここで整える</h1>
+          <p class="mv-body">
+            定期テスト前は毎日サポート。分からないままにしない、質問が苦手なお子様にもこちらから声をかけます。東かがわ市で13年、地域に根ざした教育を続けています。
+          </p>
+          <nav class="mv-quicknav" aria-label="ページ内リンク">
+            <a href="#features">塾の特徴</a>
+            <a href="#courses">コース・料金</a>
+            <a href="#schedule">クラス時間割</a>
+          </nav>
+        </div>
+        <figure class="main-visual-media">
+          <img
+            src="assets/hero-classroom.png"
+            width="1024"
+            height="768"
+            alt="坂東ゼミの教室。自然光の入る明るい空間に白い机・緑のいす、ホワイトボード、掲示板が見える"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        </figure>
+      </div>
+    </section>
+
+    <section class="section-stats" aria-label="塾のハイライト">
+      <div class="stats-inner">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <p class="stat-value stat-value--schools">白鳥・引田・大内</p>
+            <p class="stat-label">対象中学校</p>
+          </div>
+          <div class="stat-item">
+            <p class="stat-value">13年</p>
+            <p class="stat-label">実績</p>
+          </div>
+          <div class="stat-item">
+            <p class="stat-value">6名</p>
+            <p class="stat-label">定員制</p>
+          </div>
+          <div class="stat-item">
+            <p class="stat-value">毎日可</p>
+            <p class="stat-label">テスト前</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero" aria-labelledby="commitments-heading">
+      <div class="hero-inner">
+        <p class="hero-kicker">坂東ゼミの</p>
+        <h2 class="hero-title" id="commitments-heading">3つのこだわり</h2>
+        <div class="hero-lead">
+          <p class="hero-lead-highlight">少人数だからこそ、一人ひとりに深く向き合える。</p>
+          <p>13年間守り続けている、当塾の強みです。</p>
+        </div>
+        <p class="hero-body">
+          「大人数の塾では質問しづらい」<br />
+          「どこが分からないか分からない」<br /><br />
+          そんな悩みを持つお子様を、保護者の方と一緒に見守る姿勢でサポートします。
+        </p>
+      </div>
+    </section>
+
+    <section class="section-features" id="features" aria-labelledby="features-heading">
+      <h2 id="features-heading" class="visually-hidden">坂東ゼミの3つのこだわり</h2>
+      <div class="features-grid">
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 20V9.8a1.8 1.8 0 0 1 1.8-1.8h10.4A1.8 1.8 0 0 1 19 9.8V20" />
+              <path d="M8 8V6.8A4 4 0 0 1 12 3a4 4 0 0 1 4 3.8V8" />
+              <path d="M3 20h18" />
+              <path d="M12 12.2v3.8" />
+              <path d="M9.8 14.1H14.2" />
+            </svg>
+          </div>
+          <h3>定員6名の少人数制</h3>
+          <p>
+            周りと比べる必要はありません。お子様の今の理解度に歩幅を合わせ、無理のないペースで進めます。
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3.5" y="4.5" width="17" height="16" rx="2.5" />
+              <path d="M8 2.8v3.4M16 2.8v3.4" />
+              <path d="M3.5 9.2h17" />
+              <path d="M8.2 13.2h3.4M12.8 13.2h3M8.2 16.2h2.7M12 16.2h3.8" />
+            </svg>
+          </div>
+          <h3>テスト前は毎日通塾</h3>
+          <p>
+            定期テスト1週間前から毎日サポート。追加料金なしで徹底的に復習し、分からない部分をその場で解消します。
+          </p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 18.4s-5.8-4.8-5.8-9a3.3 3.3 0 0 1 5.8-2.1 3.3 3.3 0 0 1 5.8 2.1c0 4.2-5.8 9-5.8 9Z" />
+              <path d="M4 20.2c1.8-1.2 3.6-1.7 5.7-1.7 2.1 0 3.6.7 5.2.7 1.4 0 2.8-.4 4.1-1.1" />
+            </svg>
+          </div>
+          <h3>心に寄り添い学力で応える</h3>
+          <p>
+            信頼が学びを深める。親密な対話で、勉強の悩みも不安も分かち合う。一番の理解者として、お子様の伸びしろを引き出します。
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-courses" id="courses" aria-labelledby="courses-title">
+      <header class="courses-header">
+        <h2 class="courses-title" id="courses-title">コースと料金</h2>
+        <p class="courses-lead">
+          お子様の学習スタイルに合わせて選べる<br />
+          3つのプランをご用意しています。
+        </p>
+      </header>
+      <div class="courses-grid">
+        <article class="course-card">
+          <div class="course-head">
+            <div class="course-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 20V9.8a1.8 1.8 0 0 1 1.8-1.8h10.4A1.8 1.8 0 0 1 19 9.8V20" />
+                <path d="M8 8V6.8A4 4 0 0 1 12 3a4 4 0 0 1 4 3.8V8" />
+                <path d="M3 20h18" />
+                <path d="M12 12.2v3.8" />
+                <path d="M9.8 14.1H14.2" />
+              </svg>
+            </div>
+            <div class="course-head-text">
+              <h3 class="course-title">学年別クラス</h3>
+              <p class="course-price">週2回 16,000円 / 月</p>
+            </div>
+          </div>
+          <p class="course-desc">
+            定員6名の密着指導。一斉授業にはない「個」への対応で、定期・診断テストを攻略。
+          </p>
+        </article>
+
+        <article class="course-card">
+          <div class="course-head">
+            <div class="course-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3.5" y="4.5" width="17" height="16" rx="2.5" />
+                <path d="M8 2.8v3.4M16 2.8v3.4" />
+                <path d="M3.5 9.2h17" />
+                <path d="M8.2 13.2h3.4M12.8 13.2h3M8.2 16.2h2.7M12 16.2h3.8" />
+              </svg>
+            </div>
+            <div class="course-head-text">
+              <h3 class="course-title">個別クラス</h3>
+              <p class="course-price">2,000円 / 1回</p>
+            </div>
+          </div>
+          <p class="course-desc">
+            定員3名の個別指導。一人ひとりの状況に合わせ、柔軟に対応します。苦手教科克服、英検対策に最適。
+          </p>
+        </article>
+
+        <article class="course-card">
+          <div class="course-head">
+            <div class="course-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 18.4s-5.8-4.8-5.8-9a3.3 3.3 0 0 1 5.8-2.1 3.3 3.3 0 0 1 5.8 2.1c0 4.2-5.8 9-5.8 9Z" />
+                <path d="M4 20.2c1.8-1.2 3.6-1.7 5.7-1.7 2.1 0 3.6.7 5.2.7 1.4 0 2.8-.4 4.1-1.1" />
+              </svg>
+            </div>
+            <div class="course-head-text">
+              <h3 class="course-title">マンツーマン</h3>
+              <p class="course-price">3,000円 / 1回</p>
+            </div>
+          </div>
+          <p class="course-desc">
+            完全1対1の個別指導。目標に合わせた学習設計で、確実に力を伸ばします。
+          </p>
+        </article>
+      </div>
+      <p class="courses-footnote">
+        <span class="courses-footnote-dot">・</span>
+        別途教材費（6,000円〜）がかかります
+      </p>
+    </section>
+
+    <section class="section-schedule" id="schedule" aria-labelledby="schedule-title">
+      <header class="schedule-header">
+        <h2 class="schedule-title" id="schedule-title">2026年 クラス時間割</h2>
+        <p class="schedule-lead">
+          時期によって多少の変動がありますが標準的な目安は以下の通りです。
+        </p>
+      </header>
+
+      <div class="schedule-grid">
+        <article class="schedule-card">
+          <h3 class="schedule-card-title">中学1年生</h3>
+          <div class="schedule-block">
+            <span class="schedule-badge">4〜3月</span>
+            <div class="schedule-line">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7.6V12l3.2 2" />
+                <circle cx="12" cy="12" r="0.9" fill="currentColor" stroke="none" />
+              </svg>
+              <span class="schedule-days">月・木</span>
+              <span class="schedule-time">19:40〜21:40</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="schedule-card">
+          <h3 class="schedule-card-title">中学2年生</h3>
+          <div class="schedule-block">
+            <span class="schedule-badge">4〜7月</span>
+            <div class="schedule-line">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7.6V12l3.2 2" />
+                <circle cx="12" cy="12" r="0.9" fill="currentColor" stroke="none" />
+              </svg>
+              <span class="schedule-days">水・土</span>
+              <span class="schedule-time">19:40〜21:40</span>
+            </div>
+          </div>
+          <div class="schedule-block">
+            <span class="schedule-badge">8〜3月</span>
+            <div class="schedule-line">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7.6V12l3.2 2" />
+                <circle cx="12" cy="12" r="0.9" fill="currentColor" stroke="none" />
+              </svg>
+              <span class="schedule-days">火・金</span>
+              <span class="schedule-time">19:40〜21:40</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="schedule-card schedule-card--limited">
+          <span class="schedule-spots" role="status">残席1</span>
+          <h3 class="schedule-card-title">中学3年生</h3>
+          <div class="schedule-block">
+            <span class="schedule-badge">4〜7月</span>
+            <div class="schedule-line">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7.6V12l3.2 2" />
+                <circle cx="12" cy="12" r="0.9" fill="currentColor" stroke="none" />
+              </svg>
+              <span class="schedule-days">火・金</span>
+              <span class="schedule-time">19:40〜21:40</span>
+            </div>
+          </div>
+          <div class="schedule-block">
+            <span class="schedule-badge">8〜3月</span>
+            <div class="schedule-line">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7.6V12l3.2 2" />
+                <circle cx="12" cy="12" r="0.9" fill="currentColor" stroke="none" />
+              </svg>
+              <span class="schedule-days">火・金</span>
+              <span class="schedule-time">17:30〜19:30</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <p class="schedule-footnote">
+        <span class="schedule-footnote-dot" aria-hidden="true"></span>
+        <span>各クラス、定員に達し次第締め切らせていただきます</span>
+      </p>
+    </section>
+
+    <section class="section-access" id="access" aria-labelledby="access-title">
+      <header class="access-header">
+        <h2 class="access-title" id="access-title">お問い合わせ・アクセス</h2>
+        <p class="access-lead">
+          入塾のご相談や無料体験授業については公式LINE、またはお電話よりお気軽にお問合せください。
+        </p>
+      </header>
+
+      <div class="access-grid">
+        <article class="access-card access-card--line">
+          <div class="access-line-icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 11.5c0 4.694-4.03 8.5-9 8.5a9.6 9.6 0 0 1-3.737-.738L3 21l1.828-4.056A7.96 7.96 0 0 1 3 11.5C3 6.806 7.03 3 12 3s9 3.806 9 8.5Z" />
+              <path d="M8.5 9.4h7M8.5 12.2h7M8.5 15h4.4" />
+            </svg>
+          </div>
+          <h3>LINEで相談・申し込む</h3>
+          <p class="access-desc">友だち追加後、メッセージをお送りください。丁寧にお答えいたします。</p>
+          <a class="btn-line" href="https://qr-official.line.me/gs/M_579mquas_GW.png?oat_content=qr" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.345.282-.63.63-.63.212 0 .391.091.51.253l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629 0-.344.285-.629.63-.629h1.125V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771h1.125c.345 0 .63.285.63.629 0 .344-.285.629-.63.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.05 9.608.391.084.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.54 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
+            </svg>
+            LINEで相談
+          </a>
+          <p class="access-note">※24時間受付中</p>
+        </article>
+
+        <article class="access-card access-card--info">
+          <div class="access-info-body">
+            <div class="access-block">
+              <div class="access-block-head">
+                <div class="access-icon-circle access-icon-circle--phone" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7.2 4.5h2.6l1.1 4.3-2 1.4a13.7 13.7 0 0 0 4.9 4.9l1.4-2 4.3 1.1v2.6a1.8 1.8 0 0 1-1.9 1.8c-7.3-.4-13.2-6.3-13.6-13.6A1.8 1.8 0 0 1 7.2 4.5Z" />
+                    <path d="M14.4 5.8a3.9 3.9 0 0 1 3.8 3.8M14.4 3.5a6.2 6.2 0 0 1 6.1 6.1" />
+                  </svg>
+                </div>
+                <div>
+                  <span class="access-meta-label">PHONE</span>
+                  <h4 class="access-block-title">電話</h4>
+                </div>
+              </div>
+              <p class="access-tel"><a href="tel:0879254116">0879-25-4116</a></p>
+              <p class="access-hours">受付：平日 8:00〜17:00</p>
+            </div>
+
+            <div class="access-block">
+              <div class="access-block-head">
+                <div class="access-icon-circle access-icon-circle--pin" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 21s6.5-5.5 6.5-10.7A6.5 6.5 0 0 0 5.5 10.3C5.5 15.5 12 21 12 21Z" />
+                    <circle cx="12" cy="10.3" r="2.3" />
+                    <path d="M15.8 15.2h3.4M17.5 13.5v3.4" />
+                  </svg>
+                </div>
+                <div>
+                  <span class="access-meta-label">LOCATION</span>
+                  <h4 class="access-block-title">所在地</h4>
+                </div>
+              </div>
+              <p class="access-address-lead">JR 讃岐白鳥駅から徒歩3分</p>
+              <p class="access-address">〒769-2702 香川県東かがわ市松原517</p>
+            </div>
+          </div>
+          <div class="access-photo-wrap">
+            <img
+              src="assets/building-front.png"
+              width="1024"
+              height="768"
+              alt="坂東ゼミの外観。看板とガラス窓、入り口が写った建物の写真"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </article>
+      </div>
+
+      <div class="access-map">
+        <iframe
+          title="坂東ゼミの地図（香川県東かがわ市松原）"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1649.0757254431255!2d134.3668975932541!3d34.244678889113175!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35539d130f53324d%3A0xcbd066a8626281af!2z5Z2C5p2x44K844Of!5e0!3m2!1sja!2sjp!4v1775199145448!5m2!1sja!2sjp"
+          allowfullscreen
+        ></iframe>
+        <p class="access-map-link">
+          <a
+            href="https://maps.app.goo.gl/U5iSQE6KAFHVbNrZ9"
+            target="_blank"
+            rel="noopener noreferrer"
+          >Googleマップで開く</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <a class="footer-brand" href="#top">
+          <img
+            class="footer-logo-img"
+            src="assets/logo-bando.png"
+            alt="坂東ゼミ"
+            width="1024"
+            height="274"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="footer-brand-text footer-brand-text--after-logo">
+            <span class="footer-tagline">東かがわ市の少人数制学習塾</span>
+          </div>
+        </a>
+        <nav class="footer-nav" aria-label="フッターナビゲーション">
+          <a href="#features">塾の特徴</a>
+          <a href="#courses">コースと料金</a>
+          <a href="#schedule">時間割</a>
+          <a href="#access">アクセス</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 BANDO SEMI. ALL RIGHTS RESERVED.</p>
+        <ul class="footer-legal">
+          <li><a href="#">PRIVACY POLICY</a></li>
+          <li><a href="#">TERMS</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var toggle = document.getElementById("navToggle");
+      var panel = document.getElementById("navMobile");
+      if (!toggle || !panel) return;
+
+      function setOpen(open) {
+        toggle.setAttribute("aria-expanded", open);
+        toggle.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
+        panel.hidden = !open;
+        panel.classList.toggle("is-open", open);
+        document.body.style.overflow = open ? "hidden" : "";
+      }
+
+      toggle.addEventListener("click", function () {
+        setOpen(toggle.getAttribute("aria-expanded") !== "true");
+      });
+
+      panel.querySelectorAll('a[href^="#"]').forEach(function (link) {
+        link.addEventListener("click", function () {
+          if (window.matchMedia("(max-width: 900px)").matches) {
+            setOpen(false);
+          }
+        });
+      });
+
+      window.addEventListener("resize", function () {
+        if (window.matchMedia("(min-width: 901px)").matches) {
+          setOpen(false);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
