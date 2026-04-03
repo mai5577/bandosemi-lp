@@ -22,7 +22,6 @@
       --schedule-card-bg: #f0f4f8;
       --schedule-badge-bg: #d6e8f5;
       --schedule-navy: #1a202c;
-      --badge-red: #e53935;
       --access-bg: #f1f5f9;
       --access-icon-phone: #f97316;
       --access-icon-pin: #38bdf8;
@@ -351,10 +350,16 @@
     }
 
     .nav-mobile .btn-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
       margin-top: 16px;
+      margin-left: auto;
+      margin-right: auto;
       padding: 14px 20px;
       font-size: 1rem;
+      box-sizing: border-box;
     }
 
     @media (max-width: 900px) {
@@ -1075,33 +1080,6 @@
       text-align: center;
     }
 
-    .schedule-spots {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: var(--badge-red);
-      color: var(--white);
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      box-shadow: 0 2px 8px rgba(229, 57, 53, 0.35);
-      z-index: 1;
-    }
-
-    @media (max-width: 899px) {
-      .schedule-spots {
-        top: 12px;
-        right: 12px;
-      }
-    }
-
-    .schedule-card--limited .schedule-card-title {
-      padding-left: 56px;
-      padding-right: 56px;
-    }
-
     .schedule-block + .schedule-block {
       margin-top: 20px;
       padding-top: 20px;
@@ -1274,8 +1252,16 @@
     }
 
     .access-card--line .btn-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
       padding: 12px 28px;
       font-size: 0.9375rem;
+      box-sizing: border-box;
     }
 
     .access-card--line .access-note {
@@ -2058,8 +2044,7 @@
           </div>
         </article>
 
-        <article class="schedule-card schedule-card--limited">
-          <span class="schedule-spots" role="status">残席1</span>
+        <article class="schedule-card">
           <h3 class="schedule-card-title">中学3年生</h3>
           <div class="schedule-block">
             <span class="schedule-badge">4〜7月</span>
