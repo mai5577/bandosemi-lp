@@ -44,12 +44,27 @@
       box-sizing: border-box;
     }
 
+    html {
+      overflow-x: hidden;
+      overscroll-behavior-x: none;
+      width: 100%;
+    }
+
     body {
       margin: 0;
+      width: 100%;
+      max-width: 100%;
       font-family: "Noto Sans JP", system-ui, sans-serif;
       font-size: 15px;
       color: #1e293b;
       background: var(--white);
+      overscroll-behavior-x: none;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        touch-action: pan-y pinch-zoom;
+      }
     }
 
     a {
