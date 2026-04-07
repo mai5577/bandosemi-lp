@@ -381,10 +381,20 @@
       .brand {
         flex: 1 1 auto;
         min-width: 0;
+        gap: 8px;
+        max-width: calc(100% - 56px);
       }
 
       .brand-text--after-logo {
-        display: none;
+        display: flex;
+        min-width: 0;
+        flex: 1 1 auto;
+        align-items: center;
+      }
+
+      .brand-text--after-logo .brand-tagline {
+        font-size: clamp(0.6rem, 2.3vw, 0.72rem);
+        line-height: 1.35;
       }
 
       .nav-desktop {
@@ -410,11 +420,12 @@
 
       .header-inner {
         padding: 0 16px;
+        gap: 10px;
       }
 
       .brand-logo-img {
         height: 48px;
-        max-width: min(320px, 68vw);
+        max-width: min(260px, 48vw);
       }
 
       .footer-logo-img {
@@ -1153,6 +1164,20 @@
     }
 
     @media (max-width: 480px) {
+      .schedule-badge {
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .schedule-line {
+        justify-content: center;
+      }
+
+      .schedule-days {
+        text-align: center;
+      }
+
       .schedule-time {
         margin-left: 0;
         width: 100%;
