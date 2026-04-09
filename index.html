@@ -1449,8 +1449,22 @@
     }
 
     @media (max-width: 900px) {
+      .access-info-body {
+        padding: 30px 22px 26px;
+      }
+
+      .access-block {
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
       .access-block-head {
+        flex-direction: column;
+        align-items: center;
         justify-content: center;
+        gap: 10px;
+        margin-bottom: 10px;
       }
 
       .access-block-head > div,
@@ -1459,6 +1473,16 @@
       .access-address-lead,
       .access-address {
         text-align: center;
+      }
+
+      .access-block-title {
+        margin-bottom: 0;
+      }
+
+      .access-address {
+        max-width: 28em;
+        margin-left: auto;
+        margin-right: auto;
       }
     }
 
