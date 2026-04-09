@@ -293,6 +293,16 @@
       flex-shrink: 0;
     }
 
+    .floating-line-cta {
+      display: none;
+    }
+
+    .floating-line-cta.is-hidden {
+      opacity: 0;
+      transform: translateY(8px) scale(0.96);
+      pointer-events: none;
+    }
+
     .nav-toggle {
       display: none;
       width: 44px;
@@ -408,6 +418,35 @@
 
       .header-actions .btn-line {
         display: none;
+      }
+
+      .floating-line-cta {
+        position: fixed;
+        right: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+        z-index: 1200;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        min-height: 48px;
+        padding: 11px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.52);
+        background: linear-gradient(135deg, #21dd73 0%, #00c853 38%, #00aa47 100%);
+        color: var(--white);
+        font-size: 0.875rem;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        box-shadow:
+          0 14px 28px rgba(0, 200, 83, 0.4),
+          0 2px 0 rgba(255, 255, 255, 0.4) inset,
+          0 -2px 0 rgba(0, 0, 0, 0.1) inset;
+        transition: opacity 0.22s var(--ease), transform 0.22s var(--ease);
+      }
+
+      body {
+        padding-bottom: 84px;
       }
 
       .nav-toggle {
@@ -689,7 +728,7 @@
       font-weight: 800;
       line-height: 1.2;
       color: transparent;
-      background: linear-gradient(90deg, #155fc6 0%, #0f56b6 55%, #0f9a49 100%);
+      background: linear-gradient(90deg, #0f56b6 0%, #0b4ea8 55%, #0b8a41 100%);
       -webkit-background-clip: text;
       background-clip: text;
       letter-spacing: 0.02em;
@@ -706,7 +745,7 @@
       margin: 0;
       font-size: 0.84rem;
       font-weight: 700;
-      color: #64748b;
+      color: #334155;
       line-height: 1.4;
       letter-spacing: 0.04em;
     }
@@ -1717,7 +1756,6 @@
       font-weight: 600;
       letter-spacing: 0.06em;
       color: #7890af;
-      text-transform: uppercase;
     }
 
     .footer-legal {
@@ -1736,7 +1774,6 @@
       letter-spacing: 0.1em;
       color: #7e97b7;
       text-decoration: none;
-      text-transform: uppercase;
       transition: color 0.2s var(--ease);
     }
 
@@ -1880,7 +1917,7 @@
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.345.282-.63.63-.63.212 0 .391.091.51.253l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629 0-.344.285-.629.63-.629h1.125V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771h1.125c.345 0 .63.285.63.629 0 .344-.285.629-.63.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.05 9.608.391.084.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.54 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
           </svg>
-          LINEで相談
+          無料体験をLINEで相談
         </a>
         <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMobile" aria-label="メニューを開く">
           <span class="bar"></span>
@@ -1899,7 +1936,7 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.345.282-.63.63-.63.212 0 .391.091.51.253l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629 0-.344.285-.629.63-.629h1.125V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771h1.125c.345 0 .63.285.63.629 0 .344-.285.629-.63.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.05 9.608.391.084.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.54 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
         </svg>
-        LINEで相談
+        無料体験をLINEで相談
       </a>
     </nav>
   </header>
@@ -1918,7 +1955,7 @@
           </p>
           <nav class="mv-quicknav" aria-label="ページ内リンク">
             <a href="#features">塾の特徴</a>
-            <a href="#courses">コース・料金</a>
+            <a href="#courses">コースと料金</a>
             <a href="#schedule">クラス時間割</a>
           </nav>
         </div>
@@ -1949,7 +1986,7 @@
           </div>
           <div class="stat-item">
             <p class="stat-value">6名</p>
-            <p class="stat-label">定員制</p>
+            <p class="stat-label">クラス最大定員</p>
           </div>
           <div class="stat-item">
             <p class="stat-value">毎日可</p>
@@ -2003,7 +2040,7 @@
               <path d="M8.2 13.2h3.4M12.8 13.2h3M8.2 16.2h2.7M12 16.2h3.8" />
             </svg>
           </div>
-          <h3>テスト前は毎日通塾</h3>
+          <h3>テスト前の毎日通塾</h3>
           <p>
             定期テスト1週間前から毎日サポート。追加料金なしで徹底的に復習し、分からない部分をその場で解消します。
           </p>
@@ -2016,7 +2053,7 @@
               <path d="M4 20.2c1.8-1.2 3.6-1.7 5.7-1.7 2.1 0 3.6.7 5.2.7 1.4 0 2.8-.4 4.1-1.1" />
             </svg>
           </div>
-          <h3>心に寄り添い学力で応える</h3>
+          <h3>寄り添い型の学習サポート</h3>
           <p>
             信頼が学びを深める。親密な対話で、勉強の悩みも不安も分かち合う。一番の理解者として、お子様の伸びしろを引き出します。
           </p>
@@ -2046,7 +2083,7 @@
             </div>
             <div class="course-head-text">
               <h3 class="course-title">学年別クラス</h3>
-              <p class="course-price">週2回 16,000円 / 月</p>
+              <p class="course-price">週2回 16,000円／月</p>
             </div>
           </div>
           <p class="course-desc">
@@ -2066,7 +2103,7 @@
             </div>
             <div class="course-head-text">
               <h3 class="course-title">個別クラス</h3>
-              <p class="course-price">2,000円 / 1回</p>
+              <p class="course-price">2,000円／1回</p>
             </div>
           </div>
           <p class="course-desc">
@@ -2084,7 +2121,7 @@
             </div>
             <div class="course-head-text">
               <h3 class="course-title">マンツーマン</h3>
-              <p class="course-price">3,000円 / 1回</p>
+              <p class="course-price">3,000円／1回</p>
             </div>
           </div>
           <p class="course-desc">
@@ -2190,7 +2227,7 @@
       <header class="access-header">
         <h2 class="access-title" id="access-title">お問い合わせ・アクセス</h2>
         <p class="access-lead">
-          入塾のご相談や無料体験授業については公式LINE、またはお電話よりお気軽にお問合せください。
+          入塾のご相談や無料体験授業については公式LINE、またはお電話よりお気軽にお問い合わせください。
         </p>
       </header>
 
@@ -2202,15 +2239,15 @@
               <path d="M8.5 9.4h7M8.5 12.2h7M8.5 15h4.4" />
             </svg>
           </div>
-          <h3>LINEで相談・申し込む</h3>
+          <h3>無料体験をLINEで相談</h3>
           <p class="access-desc">友だち追加後、メッセージをお送りください。丁寧にお答えいたします。</p>
           <a class="btn-line" href="https://lin.ee/Pzk0lZC" target="_blank" rel="noopener noreferrer">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.345.282-.63.63-.63.212 0 .391.091.51.253l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629 0-.344.285-.629.63-.629h1.125V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771h1.125c.345 0 .63.285.63.629 0 .344-.285.629-.63.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.05 9.608.391.084.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.54 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314" />
             </svg>
-            LINEで相談
+            無料体験をLINEで相談
           </a>
-          <p class="access-note">※24時間受付中</p>
+          <p class="access-note">相談だけでもOK</p>
         </article>
 
         <article class="access-card access-card--info">
@@ -2224,8 +2261,8 @@
                   </svg>
                 </div>
                 <div>
-                  <span class="access-meta-label">PHONE</span>
-                  <h4 class="access-block-title">電話</h4>
+                  <span class="access-meta-label">連絡先</span>
+                  <h3 class="access-block-title">電話</h3>
                 </div>
               </div>
               <p class="access-tel"><a href="tel:0879254116">0879-25-4116</a></p>
@@ -2242,8 +2279,8 @@
                   </svg>
                 </div>
                 <div>
-                  <span class="access-meta-label">LOCATION</span>
-                  <h4 class="access-block-title">所在地</h4>
+                  <span class="access-meta-label">アクセス</span>
+                  <h3 class="access-block-title">所在地</h3>
                 </div>
               </div>
               <p class="access-address-lead">JR 讃岐白鳥駅から徒歩3分</p>
@@ -2309,44 +2346,77 @@
       <div class="footer-bottom">
         <p class="footer-copy">© 2026 BANDO SEMI. ALL RIGHTS RESERVED.</p>
         <ul class="footer-legal">
-          <li><a href="#">PRIVACY POLICY</a></li>
-          <li><a href="#">TERMS</a></li>
+          <li><a href="#">プライバシーポリシー</a></li>
+          <li><a href="#">利用規約</a></li>
         </ul>
       </div>
     </div>
   </footer>
 
+  <a
+    class="floating-line-cta"
+    href="https://lin.ee/Pzk0lZC"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="無料体験をLINEで相談（常時表示）"
+  >
+    無料体験をLINEで相談
+  </a>
+
   <script>
     (function () {
       var toggle = document.getElementById("navToggle");
       var panel = document.getElementById("navMobile");
-      if (!toggle || !panel) return;
+      var floatingCta = document.querySelector(".floating-line-cta");
+      var accessSection = document.getElementById("access");
+
+      function setFloatingHidden(hidden) {
+        if (!floatingCta) return;
+        floatingCta.classList.toggle("is-hidden", hidden);
+      }
 
       function setOpen(open) {
+        if (!toggle || !panel) return;
         toggle.setAttribute("aria-expanded", open);
         toggle.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
         panel.hidden = !open;
         panel.classList.toggle("is-open", open);
         document.body.style.overflow = open ? "hidden" : "";
+        setFloatingHidden(open);
       }
 
-      toggle.addEventListener("click", function () {
-        setOpen(toggle.getAttribute("aria-expanded") !== "true");
-      });
+      if (toggle && panel) {
+        toggle.addEventListener("click", function () {
+          setOpen(toggle.getAttribute("aria-expanded") !== "true");
+        });
 
-      panel.querySelectorAll('a[href^="#"]').forEach(function (link) {
-        link.addEventListener("click", function () {
-          if (window.matchMedia("(max-width: 900px)").matches) {
+        panel.querySelectorAll('a[href^="#"]').forEach(function (link) {
+          link.addEventListener("click", function () {
+            if (window.matchMedia("(max-width: 900px)").matches) {
+              setOpen(false);
+            }
+          });
+        });
+
+        window.addEventListener("resize", function () {
+          if (window.matchMedia("(min-width: 901px)").matches) {
             setOpen(false);
+            setFloatingHidden(false);
           }
         });
-      });
+      }
 
-      window.addEventListener("resize", function () {
-        if (window.matchMedia("(min-width: 901px)").matches) {
-          setOpen(false);
-        }
-      });
+      if (floatingCta && accessSection && "IntersectionObserver" in window) {
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              setFloatingHidden(entry.isIntersecting);
+            });
+          },
+          { threshold: 0.2 }
+        );
+        observer.observe(accessSection);
+      }
     })();
   </script>
 </body>
